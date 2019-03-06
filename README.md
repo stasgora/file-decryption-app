@@ -1,2 +1,2 @@
-# file-decryption-app
-File decryption app - university project
+# File Decryption App
+File decryption app

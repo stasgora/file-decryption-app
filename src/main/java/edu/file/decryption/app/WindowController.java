@@ -5,10 +5,7 @@ import edu.file.encryption.component.interfaces.ICryptoComponent;
 import edu.file.protocol.component.FileReceiver;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -22,7 +19,7 @@ public class WindowController {
 
 	public Button loginButton;
 	public TextField loginField;
-	public TextField passwordField; // Temporary like this
+	public PasswordField passwordField; // Temporary like this
 	public ProgressBar receiveProgressBar;
 	public Label loggedInLabel;
 	public Label stateLabel;
@@ -35,7 +32,7 @@ public class WindowController {
 
 	public void init(Stage stage) {
 		this.stage = stage;
-		fileReceiver = new FileReceiver(new FileTransferEventHandler(receiveProgressBar, stateLabel), cryptoComponent, this::fileReceived);
+		fileReceiver = new FileReceiver(new FileEventHandler(receiveProgressBar, stateLabel), cryptoComponent, this::fileReceived);
 	}
 
 	private void fileReceived(byte[] bytes, String s) {

@@ -8,14 +8,14 @@ import javafx.scene.control.ProgressBar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FileTransferEventHandler implements ConnectionEventHandler {
+public class FileEventHandler implements ConnectionEventHandler {
 
-	private static final Logger LOGGER = Logger.getLogger(FileTransferEventHandler.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(FileEventHandler.class.getName());
 
 	private ProgressBar sendProgressBar;
 	private Label stateLabel;
 
-	public FileTransferEventHandler(ProgressBar sendProgressBar, Label stateLabel) {
+	public FileEventHandler(ProgressBar sendProgressBar, Label stateLabel) {
 		this.sendProgressBar = sendProgressBar;
 		this.stateLabel = stateLabel;
 	}

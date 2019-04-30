@@ -36,19 +36,21 @@ public class WindowController {
 	}
 
 	private void fileReceived(byte[] bytes) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Save File");
-		File file = fileChooser.showSaveDialog(stage);
-		try {
-			if(file == null || !file.createNewFile()) {
-				return;
+		Platform.runLater(() -> {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Save File");
+			File file = fileChooser.showSaveDialog(stage);
+			try {
+				if(file == null || !file.createNewFile()) {
+					return;
+				}
+				try(FileOutputStream output = new FileOutputStream(file)) {
+					output.write(bytes);
+				}
+			} catch (IOException e) {
+				LOGGER.log(Level.WARNING, "File saving error", e);
 			}
-			try(FileOutputStream output = new FileOutputStream(file)) {
-				output.write(bytes);
-			}
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "File saving error", e);
-		}
+		});
 	}
 
 	public void userLogin(ActionEvent event){

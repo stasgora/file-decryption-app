@@ -35,7 +35,7 @@ public class WindowController {
 		fileReceiver = new FileReceiver(new FileEventHandler(receiveProgressBar, stateLabel), cryptoComponent, this::fileReceived);
 	}
 
-	private void fileReceived(byte[] bytes, String s) {
+	private void fileReceived(byte[] bytes) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save File");
 		File file = fileChooser.showSaveDialog(stage);

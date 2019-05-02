@@ -27,6 +27,7 @@ public class WindowController {
 
 	private ICryptoComponent cryptoComponent = new CryptoComponent();
 	private FileReceiver fileReceiver;
+	private boolean logged = false;
 
 	private static final String BASE_USER_LOGGED_TEXT = "Logged as: ";
 
@@ -41,6 +42,7 @@ public class WindowController {
 			fileChooser.setTitle("Save File");
 			File file = fileChooser.showSaveDialog(stage);
 			try {
+				file.delete();
 				if(file == null || !file.createNewFile()) {
 					return;
 				}
@@ -54,15 +56,13 @@ public class WindowController {
 	}
 
 	public void userLogin(ActionEvent event){
-		boolean successLogin = false;
-
-		successLogin = true; // Just to check if it works
-		if(successLogin) {
-			cryptoComponent.loginUser(loginField.getText(), passwordField.getText());
-			loggedInLabel.setText(BASE_USER_LOGGED_TEXT + cryptoComponent.getUserName());
+		if (!logged) {
+			fileReceiver.startSocket();
 		}
+		cryptoComponent.loginUser(loginField.getText(), passwordField.getText());
+		loggedInLabel.setText(BASE_USER_LOGGED_TEXT + cryptoComponent.getUserName());
+		logged = true;
 	}
-
 
 	public void exit(ActionEvent actionEvent) {
 		Platform.exit();

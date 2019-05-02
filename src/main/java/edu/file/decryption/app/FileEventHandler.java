@@ -2,6 +2,7 @@ package edu.file.decryption.app;
 
 import edu.file.protocol.component.enums.ConnectionStatus;
 import edu.file.protocol.component.interfaces.ConnectionEventHandler;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
@@ -27,7 +28,7 @@ public class FileEventHandler implements ConnectionEventHandler {
 
 	@Override
 	public void reportStatus(ConnectionStatus connectionStatus) {
-		stateLabel.setText("Status: " + connectionStatus.name());
+		Platform.runLater(() -> stateLabel.setText("Status: " + connectionStatus.name()));
 		LOGGER.log(Level.WARNING, "Status message received: " + connectionStatus.name());
 	}
 }

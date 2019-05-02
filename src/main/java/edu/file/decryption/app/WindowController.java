@@ -52,6 +52,7 @@ public class WindowController {
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "File saving error", e);
 			}
+			stateLabel.setText("");
 		});
 	}
 

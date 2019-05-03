@@ -36,16 +36,19 @@ public class WindowController {
 		fileReceiver = new FileReceiver(new FileEventHandler(receiveProgressBar, stateLabel), cryptoComponent, this::fileReceived);
 	}
 
-	private void fileReceived(byte[] bytes) {
+	private void fileReceived(byte[] bytes, String extension) {
 		Platform.runLater(() -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Save File");
 			File file = fileChooser.showSaveDialog(stage);
 			try {
-				file.delete();
-				if(file == null || !file.createNewFile()) {
+				if(file == null)
 					return;
-				}
+				String path = file.getAbsolutePath();
+				if(!extension.isEmpty() && !path.endsWith(extension))
+					file = new File(path + extension);
+				file.delete();
+				file.createNewFile();
 				try(FileOutputStream output = new FileOutputStream(file)) {
 					output.write(bytes);
 				}
@@ -67,5 +70,6 @@ public class WindowController {
 
 	public void exit(ActionEvent actionEvent) {
 		Platform.exit();
+		fileReceiver.close();
 	}
 }
